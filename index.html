@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hayu AI</title>
 </head>
-
-</body>
+<body>
 <div class="chat-container">
     <h1>Hayu AI 🤖</h1>
     <select id="language">
@@ -33,24 +32,9 @@
 
         <button onclick="sendMessage()">Send</button>
 </div>
+</div>
 
-<script>
-function sendMessage() {
-    let input = document.getElementById("user-input");
-    let message = input.value.trim();
-
-    if (message === "") return;
-
-    let chatBox = document.getElementById("chat-box");
-    let userMessage = document.createElement("p");
-
-    userMessage.textContent = message;
-    userMessage.className = "user-message";
-
-    chatBox.appendChild(userMessage);
-    input.value = "";
-}
-</script>
 <div id="typing-status"></div>
+<script src="script.js"></script>
 </body>
 </html>
