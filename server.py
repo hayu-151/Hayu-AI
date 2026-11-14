@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -20,16 +19,37 @@ def chat():
         return "", 204
 
     data = request.get_json(silent=True) or {}
-    message = str(data.get("message", "")).strip()
+    message = str(data.get("message", "")).strip().lower()
     language = data.get("language", "om")
 
     if not message:
-        return jsonify({"reply": "Mee ergaa kee barreessi."})
+        reply = "Mee gaaffii kee barreessi."
 
-    if language == "en":
-        reply = "Hello! I am Hayu AI. I received your message: " + message
+    elif language == "en":
+        if "hello" in message or "hi" in message:
+            reply = "Hello! How can I help you today?"
+        elif "your name" in message:
+            reply = "My name is Hayu AI."
+        elif "thank" in message:
+            reply = "You're welcome!"
+        else:
+            reply = "I received your message. Please tell me more."
+
     else:
-        reply = "Akkam! Ani Hayu AI dha. Ergaa kee fudhadheera: " + message
+        if "akkam" in message:
+            reply = "Nagaa dha! Ati hoo akkam jirta?"
+        elif "maqaan kee" in message:
+            reply = "Maqaan koo Hayu AI dha. Maqaan kee eenyu?"
+        elif "galatoomi" in message:
+            reply = "Maaloo! Si gargaaruun koo na gammachiisa."
+        elif "eenyu" in message:
+            reply = "Ani Hayu AI dha, gargaaraa dijitaalaa kee."
+        elif "gargaarsa" in message:
+            reply = "Eeyyee! Maal irratti si gargaaruu?"
+        elif "nagaa" in message:
+            reply = "Nagaan koo gaarii dha. Ati hoo?"
+        else:
+            reply = "Gaaffii kee naaf ibsi. Ani si gargaaruuf yaala."
 
     return jsonify({"reply": reply})
 
