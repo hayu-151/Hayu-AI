@@ -8,7 +8,7 @@ async function sendMessage() {
     const userMessage = document.createElement("p");
     userMessage.textContent = message;
     userMessage.className = "user-message";
-    chatBox.appendChild(userpMessage);
+    chatBox.appendChild(userMessage);
 
     input.value = "";
 
