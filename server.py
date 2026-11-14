@@ -1,3 +1,4 @@
+
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -20,9 +21,17 @@ def chat():
 
     data = request.get_json(silent=True) or {}
     message = str(data.get("message", "")).strip()
+    language = data.get("language", "om")
+
+    greetings = {
+        "om": "Hayu AI: Afaan Oromoo keessatti si gargaaruuf qophaa'e.",
+        "en": "Hayu AI: I am ready to help you in English.",
+        "zh": "Hayu AI：我准备好帮助你了。",
+        "ar": "Hayu AI: أنا مستعد لمساعدتك باللغة العربية."
+    }
 
     return jsonify({
-        "reply": "Hayu AI ergaa kee fudhate: " + message
+        "reply": greetings.get(language, greetings["om"]) + " Ergaa kee: " + message
     })
 
 if __name__ == "__main__":
