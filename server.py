@@ -44,8 +44,14 @@ def chat():
             reply = "Maaloo! Si gargaaruun koo na gammachiisa."
         elif "eenyu" in message:
             reply = "Ani Hayu AI dha, gargaaraa dijitaalaa kee."
-        elif "gargaarsa" in message:
-            reply = "Eeyyee! Maal irratti si gargaaruu?"
+        elif "barnoota" in message or "barnootaa" in message:
+    reply = "Eeyyee! Barnoota kee irratti si gargaaruu nan danda'a. Maal barachuu barbaadda? Herrega, Fiiziksii, Keemistirii, Baayoloojii moo Afaan Ingiliffaa?"
+
+elif "barnoota" in message or "barnootaa" in message:
+    reply = "Eeyyee! Barnoota kee irratti si gargaaruu nan danda'a. Maal barachuu barbaadda? Herrega, Fiiziksii, Keemistirii, Baayoloojii moo Afaan Ingiliffaa?"
+
+elif "gargaarsa" in message:
+    reply = "Eeyyee! Maal irratti si gargaaruu?"
         elif "nagaa" in message:
             reply = "Nagaan koo gaarii dha. Ati hoo?"
         else:
