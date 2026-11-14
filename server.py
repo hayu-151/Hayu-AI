@@ -1,6 +1,5 @@
-import os
+
 from flask import Flask, request, jsonify
-from openai import OpenAI
 
 app = Flask(__name__)
 
@@ -13,7 +12,7 @@ def add_cors_headers(response):
 
 @app.route("/")
 def home():
-    return "Hayu AI Server is running!"
+    return "Hayu AI is running!"
 
 @app.route("/chat", methods=["POST", "OPTIONS"])
 def chat():
@@ -25,42 +24,14 @@ def chat():
     language = data.get("language", "om")
 
     if not message:
-        return jsonify({"reply": "Ergaa kee barreessi."}), 400
+        return jsonify({"reply": "Mee ergaa kee barreessi."})
 
-    if len(message) > 2000:
-        return jsonify({"reply": "Ergaan kee dheeraa dha."}), 400
+    if language == "en":
+        reply = "Hello! I am Hayu AI. I received your message: " + message
+    else:
+        reply = "Akkam! Ani Hayu AI dha. Ergaa kee fudhadheera: " + message
 
-    api_key = os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        return jsonify({"reply": "API key hin argamne."}), 500
-
-    language_names = {
-        "om": "Afaan Oromoo",
-        "en": "English",
-        "zh": "Chinese",
-        "ar": "Arabic"
-    }
-
-    try:
-        client = OpenAI(api_key=api_key)
-
-        response = client.responses.create(
-            model="gpt-6-luna",
-            instructions=(
-                "You are Hayu AI, a helpful and friendly assistant. "
-                "Reply in " + language_names.get(language, "Afaan Oromoo") +
-                ". Keep answers clear and useful."
-            ),
-            input=message
-        )
-
-        return jsonify({"reply": response.output_text})
-
-    except Exception:
-        app.logger.exception("OpenAI API request failed")
-        return jsonify({
-            "reply": "Dhiifama, yeroo ammaa deebii kennuu hin dandeenye."
-        }), 500
+    return jsonify({"reply": reply})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
