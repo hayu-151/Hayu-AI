@@ -1,6 +1,8 @@
+
 async function sendMessage() {
     const input = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
+    const language = document.getElementById("language").value;
     const message = input.value.trim();
 
     if (!message) return;
@@ -18,16 +20,22 @@ async function sendMessage() {
     chatBox.appendChild(botMessage);
 
     try {
-        const response = await fetch("https://hayu-ai.onrender.com/chat", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ message })
-        });
+        const response = await fetch(
+            "https://hayu-ai.onrender.com/chat",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: message,
+                    language: language
+                })
+            }
+        );
 
         if (!response.ok) {
-            throw new Error("Server hin hojjenne");
+            throw new Error("Server error");
         }
 
         const data = await response.json();
@@ -35,6 +43,6 @@ async function sendMessage() {
 
     } catch (error) {
         botMessage.textContent =
-            "Dhiifama! Server Hayu AI waliin wal qunnamuu hin dandeenye.";
+            "Dhiifama! Server waliin wal qunnamuu hin dandeenye.";
     }
 }
